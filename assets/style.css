@@ -1,0 +1,334 @@
+/* Shared palette and type. No remote fonts or runtime dependencies. */
+:root {
+  --background: #F4F1EC;
+  --surface: #FAF8F4;
+  --text: #303B3B;
+  --muted: #56615E;
+  --sage: #788579;
+  --blue: #7D8C99;
+  --line: #D6CEC4;
+  --action: #52665D;
+  --content-width: 1160px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scrollbar-gutter: stable; scroll-padding-top: var(--header-offset, 100px); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+  color: var(--text);
+  font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+body, h1, h2, h3, p, figure, ul, ol { margin: 0; }
+main { flex: 1 0 auto; min-width: 0; }
+img { display: block; max-width: 100%; height: auto; }
+a { font-weight: 600; color: inherit; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+button { font: inherit; font-weight: 600; color: inherit; cursor: pointer; }
+button:disabled { cursor: wait; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid var(--action); outline-offset: 5px; border-radius: 3px; }
+::selection { background: #DCE4DA; color: #26352E; }
+.container { width: calc(100% - 96px); max-width: var(--content-width); margin-inline: auto; }
+.skip-link { position: fixed; z-index: 100; top: 8px; left: 16px; padding: 10px 18px; background: var(--text); color: white; transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); color: white; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.secondary-text { color: var(--muted); }
+
+/* Shared navigation. The active page is declared in HTML, not inferred by JS. */
+.site-header { position: sticky; top: 0; z-index: 30; flex-shrink: 0; background: #F4F1EC; border-bottom: 1px solid var(--line); box-shadow: 0 2px 8px rgba(48,59,59,.025); }
+.header-inner { min-height: 84px; display: flex; align-items: center; justify-content: center; }
+nav { display: flex; justify-content: center; gap: 42px; }
+nav a { position: relative; padding: 12px 4px; min-height: 48px; font-size: 16px; text-decoration: none; color: var(--muted); }
+nav a::after { content: ""; position: absolute; bottom: 6px; left: 4px; right: 4px; height: 2px; background: var(--action); transform: scaleX(0); transform-origin: center; transition: transform 180ms ease; }
+nav a[aria-current="page"] { color: var(--text); font-weight: 700; }
+nav a[aria-current="page"]::after { transform: scaleX(1); }
+.menu-toggle { min-height: 44px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 6px; background: transparent; font-size: 14px; }
+.menu-toggle span { margin-left: 9px; }
+
+/* Only Home and Experience opt in. Arcs stay outside the widest content column. */
+.has-edge-decoration { position: relative; }
+.edge-decoration { display: none; pointer-events: none; }
+@media (min-width: 1280px) {
+  .edge-decoration { display: block; position: absolute; top: 180px; right: 0; width: min(96px, max(0px, calc((100% - 1160px) / 2 - 24px))); height: 440px; overflow: clip; z-index: 0; }
+  .edge-decoration img { width: 100%; height: 100%; object-fit: contain; object-position: right center; }
+}
+
+/* Shared footer stays in normal flow; flex main fills short pages. */
+.site-footer { flex-shrink: 0; display: flex; align-items: baseline; justify-content: space-between; gap: 20px 40px; border-top: 1px solid var(--line); padding-block: 23px; font-size: 12px; line-height: 1.7; color: var(--muted); }
+.footer-institute { margin-left: auto; text-align: right; }
+
+/* Home: plain warm background and a normal-flow portrait panel. */
+.home-body { background-color: #F4F1EC; background-image: none; }
+.home-page { display: grid; align-items: center; padding-block: 48px 56px; background: #F4F1EC; background-image: none; }
+.home-layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; align-items: center; gap: 72px; }
+.home-copy { min-width: 0; max-width: 660px; padding: 0; }
+.home-copy .eyebrow { font-size: 13px; }
+.home-copy h1 { margin: 18px 0 25px; font: 400 72px/1.1 Georgia, "Times New Roman", serif; letter-spacing: -.04em; }
+.home-name-en { display: block; }
+.home-name-cn { display: block; margin-top: 10px; font: 400 34px/1.4 "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif; letter-spacing: .08em; color: var(--text); }
+.home-role { font-size: 20px; font-weight: 500; line-height: 1.7; }
+.affiliation { margin-top: 10px; color: var(--muted); font-size: 15.5px; line-height: 1.9; }
+.home-intro { margin-top: 27px; max-width: 640px; font-size: 18.5px; line-height: 1.9; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 28px; }
+.button { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 22px; border: 1px solid var(--action); border-radius: 6px; padding: 10px 19px; font-size: 14px; font-weight: 600; line-height: 1.6; text-decoration: none; transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease; }
+.button.primary { color: white; background: var(--action); font-weight: 700; }
+.button.secondary { background: var(--surface); }
+.button:focus-visible { box-shadow: 0 3px 12px rgba(48,59,59,.12); }
+.home-actions .button { min-height: 48px; font-size: 15px; }
+.home-visual { min-width: 0; display: flex; justify-content: center; align-items: center; }
+.scenic-background { position: absolute; overflow: hidden; pointer-events: none; z-index: 0; }
+.scenic-background img { width: 100%; height: 100%; object-fit: cover; }
+.scene-veil { position: absolute; inset: 0; }
+/* The image keeps its native proportions; spare space stays above the head.
+   The panel, not a body fade, contains the photograph's lower edge. */
+.portrait { width: 360px; max-width: 100%; aspect-ratio: 4 / 5; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; margin: 0; padding: 0; border: 0; border-radius: 22px; background: #E6DDD6; box-shadow: none; }
+.portrait img { flex: none; width: 96%; height: auto; object-fit: contain; border-radius: 0; filter: none; opacity: 1; mix-blend-mode: normal; }
+.illustrated-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+/* A warm architectural mount connects the supplied illustration to the page.
+   The portrait itself stays unfiltered. Sparse contours sit outside the image. */
+.home-visual.portrait-setting { position: relative; isolation: isolate; padding-block: 14px; }
+.portrait-setting::before, .portrait-setting::after { content: ""; position: absolute; pointer-events: none; z-index: -1; }
+.portrait-setting::before { width: 110px; height: 176px; top: 0; right: -14px; border: 1px solid #B5BFB2; border-left-color: transparent; border-bottom-color: transparent; border-radius: 0 110px 0 0; }
+.portrait-setting::after { width: 66px; height: 66px; bottom: 0; left: -14px; border: 1px solid #C9BDAF; border-right-color: transparent; border-top-color: transparent; border-radius: 0 0 0 32px; }
+.portrait-setting .illustrated-portrait { position: relative; padding: 9px; border-radius: 180px 180px 24px 24px; background: #E6DDD6; }
+.portrait-setting .illustrated-portrait img { border-radius: 170px 170px 16px 16px; }
+
+/* Page titles and research: original diagrams are never cropped or recolored. */
+.page-content { padding-block: 62px 78px; }
+.page-title { margin-bottom: 38px; font: 400 48px/1.2 Georgia, "Times New Roman", serif; letter-spacing: -.025em; }
+.research-card { margin-bottom: 32px; padding: 32px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; transition: box-shadow .15s; }
+.research-card:last-child { margin-bottom: 0; }
+.research-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 16px 24px; margin-bottom: 28px; }
+.research-heading h2 { font: 400 28px/1.35 Georgia, "Times New Roman", serif; letter-spacing: -.015em; }
+.status { flex-shrink: 0; padding: 4px 10px; border-radius: 4px; background: #E8ECE5; color: #3D5447; font-size: 12px; font-weight: 500; }
+.status-blue { background: #E5EBEF; color: #405461; }
+.research-layout { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 36px; align-items: start; }
+.framework-link { display: block; position: relative; cursor: zoom-in; background: white; border-radius: 4px; }
+.framework-link img { width: 100%; height: auto; object-fit: contain; }
+.figure-zoom { position: absolute; bottom: 8px; right: 8px; border: 1px solid var(--line); border-radius: 4px; padding: 3px 8px; background: #FAF8F4; color: var(--text); font-size: 11px; opacity: 0; transition: opacity .15s; pointer-events: none; }
+.framework-link:focus-visible .figure-zoom { opacity: 1; }
+.research-figure figcaption { max-width: 62ch; margin: 14px auto 0; color: var(--muted); font-size: 13px; line-height: 1.75; text-align: center; }
+.research-copy { min-width: 0; }
+.research-copy > p { font-size: 16px; line-height: 1.8; }
+.research-copy .author-role { margin-top: 19px; font-size: 13px; color: var(--muted); }
+.resource-links { display: flex; flex-wrap: wrap; gap: 4px 21px; margin-top: 19px; }
+.resource-links a { display: inline-flex; gap: 7px; align-items: center; min-height: 40px; font-size: 13px; }
+.research-details { border-top: 1px solid var(--line); margin-top: 22px; }
+.research-details summary { cursor: pointer; padding-block: 14px; min-height: 48px; font-size: 14px; font-weight: 600; }
+.research-details summary:hover { color: #384F46; }
+.details-content { padding-bottom: 3px; }
+.full-title { margin: 3px 0 15px; font: 400 20px/1.5 Georgia, "Times New Roman", serif; overflow-wrap: anywhere; }
+.details-content p { margin-top: 13px; font-size: 15px; line-height: 1.8; }
+
+/* Native modal with fit-to-view through native-pixel zoom, never over 100%. */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.lightbox { width: calc(100% - 40px); max-width: 1500px; height: min(90vh, 920px); height: min(90dvh, 920px); max-height: 94vh; max-height: 94dvh; margin: auto; padding: 20px; border: 0; border-radius: 10px; color: var(--text); background: var(--surface); }
+.lightbox[open] { display: grid; grid-template-rows: auto auto auto minmax(120px, 1fr) auto; gap: 10px; }
+.lightbox:not([open]) { display: none; }
+.lightbox::backdrop { background: rgba(30, 40, 36, .76); }
+.lightbox-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.lightbox-toolbar h2 { font-size: 18px; line-height: 1.4; font-weight: 500; }
+.lightbox-close { padding: 7px 13px; min-height: 44px; background: transparent; flex-shrink: 0; }
+#lightbox-help { color: var(--muted); font-size: 12px; line-height: 1.7; margin: 0; }
+.lightbox-controls { display: grid; grid-template-columns: auto minmax(70px, 1fr) auto; align-items: center; gap: 12px; }
+.viewer-buttons { display: flex; gap: 6px; }
+.viewer-control { min-width: 44px; min-height: 44px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); font-weight: 600; }
+.viewer-control:disabled { cursor: default; opacity: .45; }
+.zoom-slider { display: flex; align-items: center; min-width: 0; }
+#zoom-range { width: 100%; min-width: 0; min-height: 44px; margin: 0; accent-color: var(--action); }
+#zoom-value { min-width: 3.5em; text-align: right; font-size: 12px; font-variant-numeric: tabular-nums; }
+.lightbox-scroll { min-width: 0; min-height: 0; overflow: auto; overscroll-behavior: contain; background: #FFF; touch-action: pan-x pan-y; }
+.lightbox-scroll.can-pan { cursor: grab; }
+.lightbox-scroll.is-dragging { cursor: grabbing; user-select: none; }
+.lightbox-canvas { position: relative; }
+.lightbox-canvas img { position: absolute; max-width: none; min-width: 0; margin: 0; user-select: none; -webkit-user-drag: none; }
+.lightbox-caption { max-width: 92ch; max-height: 5.1em; overflow: auto; margin: 0 auto; font-size: 13px; line-height: 1.7; color: var(--muted); text-align: center; }
+body.lightbox-open { position: fixed; inset-inline: 0; overflow: hidden; }
+
+/* Experience: one continuous text column beside an independent illustration. */
+.experience-page.page-content { max-width: 1060px; padding-block: 40px 52px; }
+.experience-page .page-title { margin-bottom: 24px; }
+.experience-layout { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: start; gap: 40px; }
+.experience-copy, .experience-section { min-width: 0; }
+.experience-section + .experience-section { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
+.experience-section h2 { font-size: 23px; font-weight: 500; margin-bottom: 16px; }
+.timeline { list-style: none; padding: 0; }
+.timeline li { position: relative; padding-left: 22px; border-left: 1px solid var(--line); }
+.timeline li::before { content: ""; position: absolute; left: -5px; top: 9px; width: 9px; height: 9px; border-radius: 50%; background: var(--sage); }
+.timeline li + li { margin-top: 22px; }
+.date { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.timeline .date { margin-bottom: 6px; }
+.internship-entry .date { margin-bottom: 6px; }
+.experience-section h3 { font-size: 18px; font-weight: 550; line-height: 1.6; margin-bottom: 7px; }
+.experience-section p:not(.date) { font-size: 15px; line-height: 1.85; }
+.job-role { color: var(--muted); }
+.internship-points { padding-left: 20px; margin-top: 12px; }
+.internship-points li { font-size: 15px; line-height: 1.85; padding-left: 3px; }
+.internship-points li + li { margin-top: 6px; }
+.graduation-figure { min-width: 0; width: min(100%, 330px); justify-self: end; }
+.graduation-link { display: block; padding: 6px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); cursor: zoom-in; }
+.graduation-link img { width: 100%; height: auto; object-fit: contain; border-radius: 7px; }
+.graduation-figure figcaption { margin-top: 13px; color: var(--muted); font-size: 12px; line-height: 1.8; text-align: center; }
+
+/* Contact: an open heading, a warm opaque panel and a separate area of visible waves. */
+.contact-heading { margin-bottom: 28px; }
+.contact-title { margin-top: 15px; max-width: 900px; font: 400 clamp(48px, 6vw, 82px)/1.12 Georgia, "Times New Roman", serif; letter-spacing: -.035em; }
+.contact-stage { position: relative; isolation: isolate; display: flex; align-items: center; min-height: 455px; padding-block: 34px; }
+.contact-scene { inset-block: 0; right: 0; width: 58%; border-radius: 10px; }
+.contact-scene img { object-position: 54% 56%; filter: saturate(.45) contrast(.88) brightness(1.04); opacity: .78; }
+.contact-scene .scene-veil { background: linear-gradient(90deg, #F4F1EC 0%, rgba(244,241,236,.48) 24%, rgba(244,241,236,.08) 85%), linear-gradient(180deg, rgba(244,241,236,.14), rgba(244,241,236,.2)); }
+.contact-content { position: relative; z-index: 1; width: 64%; max-width: 650px; min-width: 0; padding: 34px; border-radius: 12px; background: rgba(250,248,244,.98); box-shadow: 0 7px 26px rgba(48,59,59,.07); }
+.contact-label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+.email-address { display: inline-block; margin-top: 8px; font: 400 clamp(22px, 2.7vw, 31px)/1.5 Georgia, "Times New Roman", serif; letter-spacing: -.02em; overflow-wrap: anywhere; }
+.contact-actions { margin-top: 24px; }
+.copy-status { min-height: 1.75em; margin-top: 10px; font-size: 13px; color: var(--muted); }
+.contact-profiles { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 22px; padding-top: 19px; border-top: 1px solid var(--line); }
+.contact-profiles a { display: inline-flex; align-items: center; min-height: 44px; gap: 12px; font-size: 15px; }
+
+/* Responsive layouts: stacked portraits and compact experience spacing. */
+@media (max-width: 1050px) {
+  .home-layout { grid-template-columns: minmax(0, 1fr) 340px; gap: 42px; }
+  .home-copy h1 { font-size: 64px; }
+  .home-name-cn { margin-top: 10px; font-size: 32px; }
+  .portrait { width: 340px; }
+  .research-layout { gap: 28px; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+  .research-card { padding: 27px; }
+  .experience-layout { gap: 30px; }
+  .contact-content { width: 68%; padding: 30px; }
+}
+@media (max-width: 800px) {
+  .site-header { max-height: 100vh; max-height: 100svh; overflow-y: auto; overscroll-behavior: contain; }
+  .container { width: calc(100% - 48px); }
+  .header-inner { flex-wrap: wrap; min-height: 76px; padding-block: 12px; gap: 0 15px; }
+  nav { width: 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--line); }
+  nav a { text-align: center; }
+  nav a::after { left: 15%; right: 15%; }
+  .home-page { padding-block: 36px 40px; }
+  .home-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .home-copy { padding-bottom: 0; }
+
+  .home-copy h1 { font-size: 56px; }
+  .home-role { font-size: 19px; }
+  .home-intro { font-size: 18px; }
+  .portrait { width: 340px; }
+  .home-visual.portrait-setting { width: min(340px, calc(100% - 28px)); justify-self: center; }
+  .page-content { padding-block: 46px 60px; }
+  .page-title { font-size: 42px; margin-bottom: 30px; }
+  .research-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .research-heading { margin-bottom: 24px; }
+  .research-figure { max-width: 640px; width: 100%; }
+  .experience-page.page-content { padding-block: 32px 44px; }
+  .experience-page .page-title { margin-bottom: 22px; }
+  .experience-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .experience-copy { display: contents; }
+  .education-section { grid-row: 1; }
+  .graduation-figure { grid-row: 2; width: min(100%, 300px); justify-self: center; }
+  .internship-section { grid-row: 3; }
+  .experience-section + .experience-section { margin-top: 0; padding-top: 22px; }
+  .contact-title { font-size: 61px; }
+  .contact-stage { min-height: 470px; }
+  .contact-content { width: 78%; }
+  .contact-scene { width: 65%; }
+  .site-footer { font-size: 11px; }
+}
+@media (max-width: 560px) {
+  .container { width: calc(100% - 40px); }
+  .menu-toggle { padding-inline: 10px; font-size: 13px; }
+  nav { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 20px; }
+  nav a { font-size: 16px; }
+  .home-page { padding-block: 32px 40px; }
+  .home-layout { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+  .home-copy h1 { font-size: 54px; margin-block: 15px 22px; }
+  .home-name-cn { margin-top: 8px; font-size: 28px; }
+  .home-role { font-size: 19px; }
+  .affiliation { font-size: 15px; }
+  .home-intro { margin-top: 24px; font-size: 17px; line-height: 1.9; }
+  .home-copy { padding-block: 0; }
+  .home-visual { width: 100%; }
+  .portrait { width: min(100%, 320px); }
+  .page-content { padding-block: 36px 48px; }
+  .page-title { font-size: 39px; margin-bottom: 29px; }
+  .research-card { padding: 22px 19px; margin-bottom: 24px; }
+  .research-heading { flex-direction: column; align-items: flex-start; gap: 13px; }
+  .research-heading h2 { font-size: 27px; }
+  .research-copy > p { font-size: 16px; }
+  .figure-zoom { display: none; }
+  .details-content p { font-size: 15px; }
+  .lightbox { width: calc(100% - 20px); padding: 15px; }
+  .lightbox-toolbar h2 { font-size: 16px; }
+  .lightbox-close { gap: 10px; font-size: 13px; }
+  #lightbox-help { font-size: 12px; }
+  .experience-page.page-content { padding-block: 28px 40px; }
+  .experience-page .page-title { margin-bottom: 20px; }
+  .experience-layout { gap: 22px; }
+  .graduation-figure { width: min(100%, 270px); }
+  .experience-section + .experience-section { padding-top: 20px; }
+  .contact-title { font-size: 49px; line-height: 1.13; }
+  .contact-heading { margin-bottom: 24px; }
+  .contact-stage { min-height: 0; padding-block: 15px 160px; }
+  .contact-content { width: 100%; padding: 25px 22px; }
+  .contact-scene { top: 45px; width: 100%; }
+  .contact-scene .scene-veil { background: linear-gradient(180deg, rgba(244,241,236,.20), rgba(244,241,236,.05) 75%, #F4F1EC); }
+  .email-address { font-size: 23px; }
+  .site-footer { flex-direction: column; gap: 8px; padding-block: 20px; }
+  .footer-institute { max-width: 100%; align-self: flex-end; }
+}
+/* Hover is limited to a mouse-like pointer; keyboard focus uses the global outline. */
+@media (hover: hover) and (pointer: fine) {
+  a:hover { color: #384F46; }
+  nav a:hover::after { transform: scaleX(1); }
+  .button:hover { transform: translateY(-2px); box-shadow: 0 4px 13px rgba(48,59,59,.10); }
+  .button.primary:hover { color: white; background: #3F5349; }
+  .button.secondary:hover, .lightbox-close:hover, .viewer-control:hover:not(:disabled) { background: #E5E9E1; }
+  .framework-link:hover .figure-zoom { opacity: 1; }
+  .research-card:hover { box-shadow: 0 3px 14px rgba(48,59,59,.04); }
+}
+/* Content is visible by default even if CSS/JS fails. Navigation never animates. */
+@keyframes arrive { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: no-preference) {
+  .home-copy h1, .page-title, .contact-heading { animation: arrive 180ms ease-out; }
+  .home-role, .affiliation, .home-intro, .research-card, .experience-section, .contact-content { animation: arrive 200ms ease-out; }
+  .home-visual, .graduation-figure { animation: arrive 220ms ease-out; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+@media print {
+  @page { size: A4; margin: 16mm; }
+  html { scrollbar-gutter: auto; }
+  body { display: block; min-height: 0; background: white; color: #202828; font-size: 11pt; }
+  .container { width: 100%; max-width: none; }
+  .site-header, .skip-link, .menu-toggle, .actions, .figure-zoom, .lightbox, .copy-status, .scenic-background, .edge-decoration { display: none !important; }
+  .page-content, .home-page { padding: 0 0 20px; }
+  .page-title { font-size: 28pt; margin-bottom: 24px; }
+  .home-layout { grid-template-columns: 1fr 145px; gap: 28px; }
+  .home-copy h1 { font-size: 32pt; }
+  .home-visual { padding: 0; align-self: start; }
+  .portrait { position: static; width: 145px; padding: 0; box-shadow: none; }
+  .home-copy { padding-bottom: 0; }
+  .research-card { background: white; box-shadow: none; border: 0; border-bottom: 1px solid #bbb; border-radius: 0; padding: 0 0 24px; }
+  .research-heading { flex-direction: row; }
+  .research-layout { display: block; }
+  .research-figure { max-width: 420px; margin-bottom: 20px; break-inside: avoid; }
+  .framework-link img { width: 100%; }
+  .research-copy > p, .details-content p { font-size: 11pt; }
+  .research-details:not([open]) { display: none; }
+  .experience-page.page-content { padding: 0 0 20px; }
+  .experience-layout { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 25px; }
+  .experience-copy { display: block; }
+  .graduation-figure { grid-row: auto; width: 100%; }
+  .experience-section + .experience-section { margin-top: 22px; padding-top: 18px; }
+  .timeline li, .internship-entry { break-inside: avoid; }
+  .contact-title { font-size: 32pt; }
+  .contact-stage { min-height: 0; padding: 0; }
+  .contact-content { width: 100%; padding: 0; background: white; box-shadow: none; }
+  .email-address { font-size: 19pt; }
+  .site-footer { display: flex; flex-direction: row; font-size: 8pt; padding-top: 15px; }
+  .footer-institute { text-align: right; }
+  body.lightbox-open { position: static; overflow: visible; }
+}
